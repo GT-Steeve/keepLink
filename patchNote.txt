@@ -6,7 +6,8 @@ Beta
 v1.00.0 = ajout light theme
 v1.01.0 = Authentification Google
 v1.01.1 = ajout footer
-v1.01.2 = UI rectifier
+v1.01.2 = UI rectifier 
+v1.01.3 = UI responsive améliorer
 
 
 ** Next Step **

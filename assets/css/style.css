@@ -35,7 +35,7 @@ body {
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  padding: 2rem 1rem;
+  padding: 2rem 1rem 0rem;
   transition: background 0.2s, color 0.2s;
 }
 
@@ -378,9 +378,8 @@ select {
   justify-content: space-between;
   align-items: center;
   max-width: 680px;
-  margin: 2rem auto 0;
-  padding: 1rem 0;
-  border-top: 1px solid var(--border);
+  margin: 0.1rem auto 0;
+  padding: 0.5rem 0;
   color: var(--text-dim);
   font-size: 0.78rem;
 }

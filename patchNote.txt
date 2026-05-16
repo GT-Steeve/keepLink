@@ -1,0 +1,5 @@
+prototype
+v0.01.0 = lancement
+
+** Next Step **
+attendre le retour XP pour jauger le passage en v1

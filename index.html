@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KeepLink</title>
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🔗 KeepLink</h1>
+      <p>Sauvegardez vos liens YouTube et sites utiles</p>
+    </header>
+
+    <section class="form-section">
+      <form id="linkForm">
+        <div class="field">
+          <label for="urlInput">URL</label>
+          <input
+            type="url"
+            id="urlInput"
+            placeholder="https://..."
+            required
+          />
+        </div>
+        <div class="field">
+          <label for="titleInput">Nom <span class="optional">(optionnel)</span></label>
+          <input
+            type="text"
+            id="titleInput"
+            placeholder="Nom du lien"
+          />
+        </div>
+        <div class="field">
+          <label for="categorySelect">Catégorie</label>
+          <select id="categorySelect">
+            <option value="YouTube">🎬 YouTube</option>
+            <option value="Site web">🌐 Site web</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-save">Conserver</button>
+      </form>
+    </section>
+
+    <section class="list-section">
+      <div class="list-header">
+        <h2>Liens sauvegardés <span id="count" class="count">0</span></h2>
+        <div class="actions">
+          <select id="filterSelect">
+            <option value="Tous">Tous</option>
+            <option value="YouTube">🎬 YouTube</option>
+            <option value="Site web">🌐 Site web</option>
+          </select>
+          <button class="btn-export" id="exportBtn">Exporter .txt</button>
+          <button class="btn-clear" id="clearBtn">Tout effacer</button>
+        </div>
+      </div>
+      <ul id="linkList"></ul>
+      <p class="empty-msg" id="emptyMsg">Aucun lien sauvegardé.</p>
+    </section>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

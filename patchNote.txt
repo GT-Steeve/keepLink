@@ -1,5 +1,6 @@
 prototype
 v0.01.0 = lancement
+v0.02.0 = swap local en cloud firebase cloud
 
 ** Next Step **
 attendre le retour XP pour jauger le passage en v1

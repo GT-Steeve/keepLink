@@ -1,3 +1,20 @@
+import { initializeApp }                                from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs,
+         deleteDoc, doc, query, orderBy, writeBatch } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey:            "AIzaSyA0mOcRS2SWs5qml3E6jlBTxI6p2qh6DIM",
+  authDomain:        "keeplink-8b783.firebaseapp.com",
+  projectId:         "keeplink-8b783",
+  storageBucket:     "keeplink-8b783.firebasestorage.app",
+  messagingSenderId: "472018940521",
+  appId:             "1:472018940521:web:e0136e30e1985c9a94e8f8"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+const db          = getFirestore(firebaseApp);
+const LINKS_COL   = collection(db, 'links');
+
 const form           = document.getElementById('linkForm');
 const urlInput       = document.getElementById('urlInput');
 const titleInput     = document.getElementById('titleInput');
@@ -9,28 +26,31 @@ const filterSelect   = document.getElementById('filterSelect');
 const exportBtn      = document.getElementById('exportBtn');
 const clearBtn       = document.getElementById('clearBtn');
 
-const STORAGE_KEY = 'keeplink_links';
+let links = [];
 
-function loadLinks() {
-  return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+init();
+
+async function init() {
+  links = await fetchLinks();
+  render();
 }
 
-function saveLinks(links) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(links));
+async function fetchLinks() {
+  const q        = query(LINKS_COL, orderBy('createdAt', 'desc'));
+  const snapshot = await getDocs(q);
+  return snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
 }
 
-let links = loadLinks();
-render();
-
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const url      = urlInput.value.trim();
   const title    = titleInput.value.trim() || extractDomain(url);
   const category = categorySelect.value;
 
-  links.unshift({ id: Date.now(), url, title, category });
-  saveLinks(links);
+  await addDoc(LINKS_COL, { url, title, category, createdAt: Date.now() });
+
+  links = await fetchLinks();
   render();
   showToast('Lien conservé !');
   urlInput.value   = '';
@@ -41,11 +61,13 @@ form.addEventListener('submit', (e) => {
 filterSelect.addEventListener('change', render);
 exportBtn.addEventListener('click', exportTxt);
 
-clearBtn.addEventListener('click', () => {
+clearBtn.addEventListener('click', async () => {
   if (!links.length) return;
   if (confirm('Effacer tous les liens ?')) {
+    const batch = writeBatch(db);
+    links.forEach(l => batch.delete(doc(db, 'links', l.id)));
+    await batch.commit();
     links = [];
-    saveLinks(links);
     render();
   }
 });
@@ -79,9 +101,9 @@ function render() {
   });
 
   linkList.querySelectorAll('.btn-delete').forEach(btn => {
-    btn.addEventListener('click', () => {
-      links = links.filter(l => l.id !== Number(btn.dataset.id));
-      saveLinks(links);
+    btn.addEventListener('click', async () => {
+      await deleteDoc(doc(db, 'links', btn.dataset.id));
+      links = await fetchLinks();
       render();
     });
   });

@@ -1,6 +1,8 @@
 import { initializeApp }                                from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs,
          deleteDoc, doc, query, orderBy, writeBatch } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup,
+         signOut, onAuthStateChanged }                from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey:            "AIzaSyA0mOcRS2SWs5qml3E6jlBTxI6p2qh6DIM",
@@ -13,9 +15,29 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 const db          = getFirestore(firebaseApp);
+const auth        = getAuth(firebaseApp);
+const provider    = new GoogleAuthProvider();
 const LINKS_COL   = collection(db, 'links');
 
+const loginScreen = document.getElementById('loginScreen');
+const app         = document.getElementById('app');
+const btnSignIn   = document.getElementById('btnSignIn');
+const btnSignOut  = document.getElementById('btnSignOut');
 const themeToggle = document.getElementById('themeToggle');
+
+btnSignIn.addEventListener('click', () => signInWithPopup(auth, provider));
+btnSignOut.addEventListener('click', () => signOut(auth));
+
+onAuthStateChanged(auth, user => {
+  if (user) {
+    loginScreen.style.display = 'none';
+    app.style.display         = 'block';
+    init();
+  } else {
+    loginScreen.style.display = 'flex';
+    app.style.display         = 'none';
+  }
+});
 
 (function initTheme() {
   const saved = localStorage.getItem('keeplink_theme') || 'dark';
@@ -42,8 +64,6 @@ const exportBtn      = document.getElementById('exportBtn');
 const clearBtn       = document.getElementById('clearBtn');
 
 let links = [];
-
-init();
 
 async function init() {
   links = await fetchLinks();

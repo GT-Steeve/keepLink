@@ -8,10 +8,22 @@
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-  <div class="container">
+  <div id="loginScreen" class="login-screen">
+    <div class="login-box">
+      <h1>🔗 KeepLink</h1>
+      <p>Connecte-toi pour accéder à tes liens</p>
+      <button id="btnSignIn" class="btn-google">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="20" />
+        Se connecter avec Google
+      </button>
+    </div>
+  </div>
+
+  <div class="container" id="app" style="display:none">
     <header>
       <h1>🔗 KeepLink</h1>
       <p>Sauvegardez vos liens YouTube et sites utiles</p>
+      <button id="btnSignOut" class="btn-signout">Déconnexion</button>
     </header>
 
     <section class="form-section">
@@ -60,6 +72,7 @@
       <ul id="linkList"></ul>
       <p class="empty-msg" id="emptyMsg">Aucun lien sauvegardé.</p>
     </section>
+  </div>
   </div>
 
   <button class="btn-theme" id="themeToggle" title="Changer le thème">🌙</button>

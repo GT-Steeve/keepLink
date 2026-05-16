@@ -372,6 +372,23 @@ select {
   border-color: #ef444466;
 }
 
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 680px;
+  margin: 2rem auto 0;
+  padding: 1rem 0;
+  border-top: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 0.78rem;
+}
+
+.footer-version {
+  font-family: monospace;
+}
+
 /* Theme toggle */
 .btn-theme {
   position: fixed;

@@ -1,3 +1,29 @@
+:root {
+  --bg:         #273525;
+  --bg-card:    #2f3f2c;
+  --bg-item:    #243222;
+  --border:     #3d5438;
+  --text:       #cce0c8;
+  --text-muted: #7a9e74;
+  --text-dim:   #527050;
+  --count-bg:   #344a30;
+  --btn-save:       #4f8c42;
+  --btn-save-hover: #427538;
+}
+
+[data-theme="light"] {
+  --bg:         #f0ebe0;
+  --bg-card:    #e8e2d5;
+  --bg-item:    #ede7da;
+  --border:     #cfc9b8;
+  --text:       #2c2820;
+  --text-muted: #6e6658;
+  --text-dim:   #9a9080;
+  --count-bg:   #d8d2c2;
+  --btn-save:       #5b6af0;
+  --btn-save-hover: #4a59e0;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -6,10 +32,11 @@
 
 body {
   font-family: 'Segoe UI', system-ui, sans-serif;
-  background: #0f0f13;
-  color: #e2e2e8;
+  background: var(--bg);
+  color: var(--text);
   min-height: 100vh;
   padding: 2rem 1rem;
+  transition: background 0.2s, color 0.2s;
 }
 
 .container {
@@ -29,15 +56,15 @@ header h1 {
 }
 
 header p {
-  color: #888;
+  color: var(--text-muted);
   margin-top: 0.4rem;
   font-size: 0.95rem;
 }
 
 /* Form */
 .form-section {
-  background: #1a1a22;
-  border: 1px solid #2a2a38;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 2rem;
@@ -51,7 +78,7 @@ label {
   display: block;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #aaa;
+  color: var(--text-muted);
   margin-bottom: 0.35rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -60,7 +87,7 @@ label {
 .optional {
   font-weight: 400;
   text-transform: none;
-  color: #666;
+  color: var(--text-dim);
 }
 
 input[type="url"],
@@ -68,10 +95,10 @@ input[type="text"],
 select {
   width: 100%;
   padding: 0.65rem 0.9rem;
-  background: #0f0f13;
-  border: 1px solid #2a2a38;
+  background: var(--bg);
+  border: 1px solid var(--border);
   border-radius: 8px;
-  color: #e2e2e8;
+  color: var(--text);
   font-size: 0.95rem;
   transition: border-color 0.15s;
   outline: none;
@@ -95,7 +122,7 @@ select {
 .btn-save {
   width: 100%;
   padding: 0.75rem;
-  background: #5b6af0;
+  background: var(--btn-save);
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -106,13 +133,13 @@ select {
   transition: background 0.15s, transform 0.1s;
 }
 
-.btn-save:hover { background: #4a59e0; }
+.btn-save:hover  { background: var(--btn-save-hover); }
 .btn-save:active { transform: scale(0.98); }
 
 /* List */
 .list-section {
-  background: #1a1a22;
-  border: 1px solid #2a2a38;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 1.5rem;
 }
@@ -135,8 +162,8 @@ select {
 }
 
 .count {
-  background: #2a2a38;
-  color: #888;
+  background: var(--count-bg);
+  color: var(--text-muted);
   font-size: 0.75rem;
   padding: 0.1rem 0.5rem;
   border-radius: 999px;
@@ -197,8 +224,8 @@ select {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background: #0f0f13;
-  border: 1px solid #2a2a38;
+  background: var(--bg-item);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 0.75rem 1rem;
   animation: fadeIn 0.2s ease;
@@ -238,6 +265,7 @@ select {
 .link-title {
   font-size: 0.9rem;
   font-weight: 500;
+  color: var(--text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -245,7 +273,7 @@ select {
 
 .link-url {
   font-size: 0.75rem;
-  color: #666;
+  color: var(--text-dim);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -254,7 +282,7 @@ select {
 .btn-delete {
   background: none;
   border: none;
-  color: #555;
+  color: var(--text-dim);
   cursor: pointer;
   font-size: 1rem;
   padding: 0.2rem 0.3rem;
@@ -270,15 +298,38 @@ select {
 
 .empty-msg {
   text-align: center;
-  color: #555;
+  color: var(--text-dim);
   font-size: 0.9rem;
   padding: 2rem 0;
 }
 
+/* Theme toggle */
+.btn-theme {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s, transform 0.1s;
+  z-index: 100;
+}
+
+.btn-theme:hover  { background: var(--count-bg); }
+.btn-theme:active { transform: scale(0.92); }
+
 /* Toast */
 .toast {
   position: fixed;
-  bottom: 1.5rem;
+  bottom: 5rem;
   right: 1.5rem;
   background: #22c55e;
   color: #fff;

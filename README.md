@@ -1,6 +1,6 @@
 # 🔗 KeepLink
 
-Gestionnaire de liens personnels pour sauvegarder rapidement des URLs YouTube et sites web.
+Gestionnaire de liens personnels pour sauvegarder rapidement des URLs YouTube et sites web, synchronisés entre tous tes appareils.
 
 ## Fonctionnalités
 
@@ -8,24 +8,20 @@ Gestionnaire de liens personnels pour sauvegarder rapidement des URLs YouTube et
 - Filtrer les liens par catégorie
 - Supprimer un lien ou effacer toute la liste
 - Exporter les liens dans un fichier `.txt`
-- Sauvegarde automatique dans le navigateur (localStorage)
+- Synchronisation cloud en temps réel via Firebase Firestore
 
 ## Technologies
 
 - HTML / CSS / JavaScript vanilla
-- localStorage (aucune base de données ni serveur requis)
-
-## Alternative cloud
-
-Une intégration **Firebase Firestore** (Google) a été explorée pour synchroniser les liens entre appareils. Cette option nécessite un projet Firebase et un serveur local (ex. Live Server). Elle peut être activée en remplacement du localStorage si une persistance cloud est souhaitée.
+- **Firebase Firestore** (Google) — stockage cloud gratuit, synchronisation entre appareils
 
 ## Utilisation
 
-1. Ouvre `index.html` dans ton navigateur (ou via Live Server dans VS Code)
+1. Ouvre l'application via [GitHub Pages](https://gt-steeve.github.io/keeplink) ou Live Server en local
 2. Colle une URL, ajoute un nom optionnel, choisis une catégorie
 3. Clique sur **Conserver**
 
-Les liens sont sauvegardés automatiquement dans le navigateur.
+Les liens sont sauvegardés automatiquement dans Firebase et accessibles depuis n'importe quel appareil.
 
 ## Export
 
@@ -33,4 +29,4 @@ Le bouton **Exporter .txt** télécharge un fichier texte de tous les liens visi
 
 ## Hébergement
 
-Le projet est compatible avec **GitHub Pages** — aucun serveur nécessaire.
+Le projet est hébergé sur **GitHub Pages**. Les données sont stockées dans **Firebase Firestore** (plan gratuit Spark).

@@ -15,6 +15,21 @@ const firebaseApp = initializeApp(firebaseConfig);
 const db          = getFirestore(firebaseApp);
 const LINKS_COL   = collection(db, 'links');
 
+const themeToggle = document.getElementById('themeToggle');
+
+(function initTheme() {
+  const saved = localStorage.getItem('keeplink_theme') || 'dark';
+  document.documentElement.dataset.theme = saved;
+  themeToggle.textContent = saved === 'light' ? '🌙' : '☀️';
+})();
+
+themeToggle.addEventListener('click', () => {
+  const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+  document.documentElement.dataset.theme = next;
+  themeToggle.textContent = next === 'light' ? '🌙' : '☀️';
+  localStorage.setItem('keeplink_theme', next);
+});
+
 const form           = document.getElementById('linkForm');
 const urlInput       = document.getElementById('urlInput');
 const titleInput     = document.getElementById('titleInput');
